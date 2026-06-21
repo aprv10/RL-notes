@@ -2,3 +2,4 @@ Q-learning(bellman equation)
 value function
 ppo
 dpo
+TD error
