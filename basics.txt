@@ -1,6 +1,31 @@
-Q-learning(bellman equation)
-value function
-ppo
-dpo
-TD error
-KL divergence
+Q-learning (Bellman equation)
+- Q-learning is a model-free, off-policy RL algorithm that learns the optimal action-value function Q*(s, a).
+- It uses the Bellman equation: Q(s, a) = r + γ * max_a' Q(s', a'), where r is reward, γ is discount factor, s' is next state.
+- The algorithm updates Q-values iteratively via: Q(s, a) ← Q(s, a) + α * [r + γ * max_a' Q(s', a') - Q(s, a)], where α is the learning rate.
+- Key property: off-policy — it learns from actions taken under any policy (often ε-greedy) while approximating the optimal policy directly.
+- Guaranteed to converge to the optimal Q-function for finite MDPs under appropriate conditions (all state-action pairs visited infinitely often, suitable learning rate schedule).
+
+Value function
+- V(s) measures the expected return starting from state s under a given policy.
+- The optimal value function V*(s) = max_a Q*(s, a) gives the maximum expected return achievable from state s.
+- The Bellman optimality equation for V: V(s) = max_a [R(s, a) + γ * Σ P(s'|s, a) V(s')].
+
+PPO (Proximal Policy Optimization)
+- PPO is a policy-gradient method that improves training stability by clipping the policy update.
+- It restricts the update to a trust region using a clipped surrogate objective, preventing large destructive policy changes.
+- Commonly uses a clipped probability ratio: L_clip = min(r(θ) * A, clip(r(θ), 1-ε, 1+ε) * A), where r(θ) is the probability ratio and A is the advantage.
+
+DPO (Direct Preference Optimization)
+- DPO is a preference-based RL method that directly optimizes a policy from human preferences without explicit reward modeling.
+- It reparameterizes the RLHF objective to derive a simple binary cross-entropy loss over preference pairs.
+- Avoids the need for a separate reward model and online RL sampling during training.
+
+TD error (Temporal Difference Error)
+- TD error δ = r + γ * V(s') - V(s) measures the difference between the estimated value of a state and the updated estimate after observing a reward and the next state.
+- Used in TD learning algorithms to bootstrap value estimates from subsequent estimates.
+- Zero TD error indicates the value estimate is consistent with observed transitions.
+
+KL divergence (Kullback–Leibler divergence)
+- KL divergence D_KL(P || Q) = Σ P(x) * log(P(x) / Q(x)) measures how one probability distribution P diverges from a reference distribution Q.
+- In RL, KL divergence is often used as a penalty in policy optimization (e.g., TRPO, PPO) to constrain policy updates.
+- In RLHF/DPO, it prevents the learned policy from deviating too far from the reference (SFT) policy.
