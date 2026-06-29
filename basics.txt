@@ -1,4 +1,10 @@
-Q-learning(bellman equation)
+Q-learning (Bellman equation)
+- Q-learning is a model-free, off-policy RL algorithm that learns the optimal action-value function Q*(s, a).
+- It uses the Bellman equation: Q(s, a) = r + γ * max_a' Q(s', a'), where r is reward, γ is discount factor, s' is next state.
+- The algorithm updates Q-values iteratively via: Q(s, a) ← Q(s, a) + α * [r + γ * max_a' Q(s', a') - Q(s, a)], where α is the learning rate.
+- Key property: off-policy — it learns from actions taken under any policy (often ε-greedy) while approximating the optimal policy directly.
+- Guaranteed to converge to the optimal Q-function for finite MDPs under appropriate conditions (all state-action pairs visited infinitely often, suitable learning rate schedule).
+
 value function
 ppo
 dpo
